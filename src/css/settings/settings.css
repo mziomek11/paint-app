@@ -1,0 +1,21 @@
+.settings {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: lightblue;
+  padding: 0 10%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 80px;
+}
+
+.settings .drawmanager {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=settings.css.map */
