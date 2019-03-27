@@ -2,7 +2,7 @@ import React from "react";
 import Size from "./Size";
 import Color from "./Color";
 import Clear from "./Clear";
-import DrawManager from "./DrawManager";
+import ToolManager from "./ToolManager";
 import "../../css/settings/settings.css";
 
 const Settings = () => {
@@ -11,7 +11,7 @@ const Settings = () => {
             <Size/>
             <Color/>
             <Clear/>
-            <DrawManager/>
+            <ToolManager/>
         </div>
     )
 }

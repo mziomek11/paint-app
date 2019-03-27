@@ -6,7 +6,8 @@ const initState = {
     canvas2: null,
     ctx2: null,
     size: 10,
-    settingsHeight: 80
+    settingsHeight: 80,
+    color: "#000000"
 }
 
 const paintReducer = (state=initState, action) => {
@@ -23,6 +24,8 @@ const paintReducer = (state=initState, action) => {
             return {...state, ctx2: action.payload.ctx};
         case PaintActions.UPDATE_SIZE:
             return {...state, size: action.payload};
+        case PaintActions.UPDATE_COLOR:
+            return {...state, color: action.payload};
         default:
             return state;
     }

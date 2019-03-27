@@ -7,8 +7,8 @@ const App = () => {
   return (
     <div className="app">
       <Settings/>
-      <Canvas isFirst={false}/>
       <Canvas isFirst={true}/>
+      <Canvas isFirst={false}/>
     </div>
   )
 }

@@ -2,18 +2,32 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {updateCanvas, updateCtx} from "../store/actions/paintActions";
 
-const Canvas = ({updateCanvas, updateCtx, isFirst}) => {
+const Canvas = ({updateCanvas, updateCtx, isFirst, settingsHeight}) => {
     useEffect(() => {
         const canvas = document.getElementById(isFirst ? "canv" : "canv2");
         const ctx = canvas.getContext('2d');
         updateCanvas(canvas, isFirst);
         updateCtx(ctx, isFirst);
+
+        window.addEventListener("resize", handleResize(canvas))
+        return () => window.removeEventListener("resize", handleResize);
     }, [])
+
+    const handleResize = (canvas) => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight - settingsHeight;
+    }
+
     return (
         <canvas id={isFirst ? "canv" : "canv2"} width={window.innerWidth} height={window.innerHeight}/>
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        settingsHeight: state.paint.settingsHeight
+    }
+}
 const mapDispatchToProps = dispatch => {
     return {
         updateCanvas: (canvas, isFirst) => dispatch(updateCanvas(canvas, isFirst)),
@@ -21,4 +35,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Canvas);
+export default connect(mapStateToProps, mapDispatchToProps)(Canvas);

@@ -15,6 +15,10 @@ html {
     overflow: hidden;
 }
 
-#canv {
+#canv2 {
     transform: translateY(calc(-100% - 2px));
+}
+
+canvas.no-cursor {
+    cursor: pointer;
 }

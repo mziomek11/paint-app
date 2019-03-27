@@ -16,8 +16,12 @@ html {
   overflow: hidden;
 }
 
-#canv {
+#canv2 {
   -webkit-transform: translateY(calc(-100% - 2px));
           transform: translateY(calc(-100% - 2px));
+}
+
+canvas.no-cursor {
+  cursor: pointer;
 }
 /*# sourceMappingURL=main.css.map */
