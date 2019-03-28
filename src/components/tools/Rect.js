@@ -40,7 +40,7 @@ const Rect = ({ctx2, ctx, canvas2, size, settingsHeight}) => {
     }, [ctx2, canvas2, size])
 
     return(
-        <div className="tool rect" id="rect">
+        <div className="tool" id="rect">
         </div>
     )
 }

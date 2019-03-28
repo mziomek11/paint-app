@@ -47,7 +47,7 @@ const Rubber = ({ctx, ctx2, canvas2, size, settingsHeight}) => {
     }, [ctx, ctx2, canvas2, size])
 
     return(
-        <div className="tool rubber" id="rubber">
+        <div className="tool" id="rubber">
  
         </div>
     )

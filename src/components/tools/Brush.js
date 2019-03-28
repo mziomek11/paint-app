@@ -48,7 +48,7 @@ const Brush = ({ctx, ctx2, canvas2, size, settingsHeight}) => {
     }, [ctx, ctx2, canvas2, size])
 
     return(
-        <div className="tool brush" id="brush">
+        <div className="tool" id="brush">
         </div>
     )
 }

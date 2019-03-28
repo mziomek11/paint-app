@@ -5,14 +5,21 @@ import {updateColor} from "../../store/actions/paintActions";
 const Color = ({ctx, ctx2, color, updateColor}) => {
     useEffect(() => {
         document.getElementById("colorpicker").value = color;
+        updateCtxsColor(color);
     }, [color])
+
     const handleColorChange = e => {
-        ctx.fillStyle = e.target.value;
-        ctx.strokeStyle = e.target.value;
-        ctx2.fillStyle = e.target.value;
-        ctx2.strokeStyle = e.target.value;
+        updateCtxsColor(e.target.value);
         updateColor(e.target.value);
     } 
+    const updateCtxsColor = color => {
+        if(!(ctx && ctx2)) return;
+        ctx.fillStyle = color;
+        ctx.strokeStyle = color;
+        ctx2.fillStyle = color;
+        ctx2.strokeStyle = color;
+    }
+
     return (
         <input type="color" onChange={handleColorChange} id="colorpicker"/>
     )

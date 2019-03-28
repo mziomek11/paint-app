@@ -6,41 +6,42 @@ import Ellipse from "../tools/Ellipse";
 import Rect from "../tools/Rect";
 import Fill from "../tools/Fill";
 import Picker from "../tools/Picker";
+import Text from "../tools/Text";
 
 const DrawManager = () => {
-    const [option, setOption] = useState("Picker");
-    let drawType;
-    if(option === "Brush"){
-        drawType = <Brush/>
-    }else if(option === "Rubber"){
-        drawType = <Rubber/>
-    }else if(option === "Line"){
-        drawType = <Line/>
-    }else if(option === "Ellipse"){
-        drawType = <Ellipse/>
-    }else if(option === "Rect"){
-        drawType = <Rect/>
-    }else if(option === "Fill"){
-        drawType = <Fill/>
-    }else if(option === "Picker"){
-        drawType = <Picker/>
-    }
-    const handleChange = e => {
-        const newOption = e.target.value;
-        setOption(newOption);
+    const [tool, setTool] = useState(<Brush/>);
+    const handleToolClick = newTool => {
+        setTool(newTool);
     }
     return(
-        <div className="drawmanager">
-            <select name="draw" id="draw" onChange={handleChange} value={option}>
-                <option>Brush</option>
-                <option>Rubber</option>
-                <option>Line</option>
-                <option>Ellipse</option>
-                <option>Rect</option>
-                <option>Fill</option>
-                <option>Picker</option>
-            </select>
-            {drawType}
+        <div className="toolmaganer">
+            <div className="toolselect">
+                <div className="tooloption" onClick={() => handleToolClick(<Brush/>)}>
+                    <i className="fas fa-paint-brush"></i>
+                </div>
+                <div className="tooloption" onClick={() => handleToolClick(<Rubber/>)}>
+                    <i className="fas fa-eraser"></i>
+                </div>
+                <div className="tooloption" onClick={() => handleToolClick(<Line/>)}>
+                    <div className="line"></div>
+                </div>
+                <div className="tooloption" onClick={() => handleToolClick(<Ellipse/>)}>
+                    <i className="far fa-circle"></i>
+                </div>
+                <div className="tooloption" onClick={() => handleToolClick(<Rect/>)}>
+                    <div className="rect"></div>
+                </div>
+                <div className="tooloption" onClick={() => handleToolClick(<Fill/>)}>
+                    <i className="fas fa-fill-drip"></i>
+                </div>
+                <div className="tooloption" onClick={() => handleToolClick(<Picker/>)}>
+                    <i className="fas fa-eye-dropper"></i>
+                </div>
+                <div className="tooloption" onClick={() => handleToolClick(<Text/>)}>
+                    <i className="fab fa-amilia"></i>
+                </div>
+            </div>
+            {tool}
         </div>
     )
 }

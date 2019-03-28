@@ -17,7 +17,6 @@ const Picker = ({ctx, canvas2, settingsHeight, updateColor}) => {
                 return "#" + hexR + hexG + hexB;
             }
             const colorRGB = rgbToHex(imageData[0], imageData[1], imageData[2]);
-            console.log(colorRGB);
             updateColor(colorRGB);
         }
         canvas2.addEventListener("mousedown" , onMouseDown);
@@ -27,7 +26,7 @@ const Picker = ({ctx, canvas2, settingsHeight, updateColor}) => {
     }, [ctx, canvas2])
 
     return(
-        <div className="tool picker" id="picker">
+        <div className="tool" id="picker">
         </div>
     )
 }

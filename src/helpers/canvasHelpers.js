@@ -8,7 +8,30 @@ export const strokeRect = (startX, startY, endX, endY, size, ctx) => {
 
     ctx.lineWidth = size;
     ctx.strokeRect(startX, startY, width, height);  
-}
+};
+
+export const strokeTextBorder = (startX, startY, endX, endY, ctx) => {
+    const lastWidth = ctx.lineWidth;
+    const lastLineDash = ctx.getLineDash();
+    
+    ctx.setLineDash([5, 3]);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.lineTo(startX, endY);
+    ctx.lineTo(startX, startY);
+    ctx.stroke();
+
+    ctx.lineWidth = lastWidth;
+    ctx.setLineDash(lastLineDash);
+};
+
+export const fillText = (x, y, text, ctx) => {
+    ctx.font = "30px Comic Sans MS";
+    ctx.fillText(text, x, y); 
+};
 
 export const fillRect = (x, y, size, ctx) => {
     ctx.fillRect(x - size/2, y - size/2, size, size);

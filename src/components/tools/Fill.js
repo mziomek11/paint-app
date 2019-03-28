@@ -75,7 +75,7 @@ const Fill = ({ctx, canvas2, settingsHeight}) => {
     }, [ctx, canvas2])
 
     return(
-        <div className="tool fill" id="fill">
+        <div className="tool" id="fill">
         </div>
     )
 }

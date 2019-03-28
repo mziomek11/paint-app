@@ -40,7 +40,7 @@ const Ellipse = ({ctx2, ctx, canvas2, size, settingsHeight}) => {
     }, [ctx2, ctx, canvas2, size])
 
     return(
-        <div className="tool ellipse" id="ellipse">
+        <div className="tool" id="ellipse">
         </div>
     )
 }

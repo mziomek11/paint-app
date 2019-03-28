@@ -17,6 +17,7 @@ const Line = ({ctx2, ctx, canvas2, size, settingsHeight}) => {
             const x = e.clientX;
             const y = e.clientY;
             const {startx, starty} = line.attributes;
+            clearCtx(ctx2);
             drawRoundedLine(startx, starty - settingsHeight, x, y - settingsHeight, size, ctx);
             line.classList.remove("pressing");
         }
@@ -39,7 +40,7 @@ const Line = ({ctx2, ctx, canvas2, size, settingsHeight}) => {
     }, [ctx2, canvas2, size])
 
     return(
-        <div className="tool line" id="line">
+        <div className="tool" id="line">
         </div>
     )
 }
