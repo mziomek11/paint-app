@@ -3,13 +3,13 @@ import {connect} from "react-redux";
 import {updateCanvas, updateCtx} from "../store/actions/paintActions";
 
 const Canvas = ({updateCanvas, updateCtx, isFirst, settingsHeight}) => {
+    let canvas = React.createRef();
     useEffect(() => {
-        const canvas = document.getElementById(isFirst ? "canv" : "canv2");
-        const ctx = canvas.getContext('2d');
-        updateCanvas(canvas, isFirst);
+        const ctx = canvas.current.getContext('2d');
+        updateCanvas(canvas.current, isFirst);
         updateCtx(ctx, isFirst);
 
-        window.addEventListener("resize", handleResize(canvas))
+        window.addEventListener("resize", handleResize(canvas.current))
         return () => window.removeEventListener("resize", handleResize);
     }, [])
 
@@ -19,7 +19,7 @@ const Canvas = ({updateCanvas, updateCtx, isFirst, settingsHeight}) => {
     }
 
     return (
-        <canvas id={isFirst ? "canv" : "canv2"} width={window.innerWidth} height={window.innerHeight}/>
+        <canvas ref={canvas} width={window.innerWidth} height={window.innerHeight}/>
     )
 }
 

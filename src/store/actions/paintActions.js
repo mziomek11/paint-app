@@ -34,3 +34,13 @@ export const updateColor = color => {
         payload: color
     };
 };
+
+export const updateTextArea = (textArea, options) => {
+    return {
+        type: PaintActions.UPDATE_TEXT_AREA,
+        payload: {
+            textArea: textArea,
+            options: options
+        }
+    };
+};

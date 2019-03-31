@@ -7,7 +7,8 @@ const initState = {
     ctx2: null,
     size: 10,
     settingsHeight: 80,
-    color: "#000000"
+    color: "#000000",
+    textArea: null
 }
 
 const paintReducer = (state=initState, action) => {
@@ -26,6 +27,15 @@ const paintReducer = (state=initState, action) => {
             return {...state, size: action.payload};
         case PaintActions.UPDATE_COLOR:
             return {...state, color: action.payload};
+        case PaintActions.UPDATE_TEXT_AREA:
+            const {textArea, options} = action.payload;
+            if(textArea){
+                console.log(textArea)
+                console.log(options)
+            }else {
+                console.log(options)
+            }
+            return {...state};
         default:
             return state;
     }

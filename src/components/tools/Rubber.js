@@ -1,57 +1,67 @@
-import React, {useEffect} from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
-import {clearCtx, fillRect, drawLine} from "../../helpers/canvasHelpers";
+import {fillRect, drawLine} from "../../helpers/canvasHelpers";
 
-const Rubber = ({ctx, ctx2, canvas2, size, settingsHeight}) => {
-    useEffect(() => {
+class Rubber extends Component{
+    state = {
+        lastX: null,
+        lastY: null,
+        mousePressing: false
+    }
+    onMouseDown = e => {
+        const {settingsHeight, ctx, size} = this.props;
+        const x = e.clientX;
+        const y = e.clientY - settingsHeight;
+
+        fillRect(x, y, size, ctx);
+        this.setState({lastX: x, lastY: y, mousePressing: true});
+    }
+    onMouseUp = () => {
+        this.setState({lastX: null, lastY: null, mousePressing: false});
+    }
+    onMouseMove = e => {
+        if(!this.state.mousePressing) return;
+        const {settingsHeight, ctx, size} = this.props;
+        const {lastX, lastY} = this.state;
+        const x = e.clientX;
+        const y = e.clientY - settingsHeight;
+
+        drawLine(lastX, lastY, x, y, size, ctx);
+        fillRect(x, y, size, ctx);
+        this.setState({lastX: x, lastY: y});
+    }
+    addListeners = () => {
+        const {canvas2} = this.props;
         if(!canvas2) return;
-        const rubber = document.getElementById("rubber");
-        const onMouseDown = e => {
-            const x = e.clientX;
-            const y = e.clientY;
-            fillRect(x, y - settingsHeight, size, ctx);
-            rubber.classList.add("pressing");
-            rubber.attributes.lastx = x;
-            rubber.attributes.lasty = y;
-        }
-        const onMouseUp = () => {
-            rubber.classList.remove("pressing");
-            rubber.attributes.lastx = null;
-            rubber.attributes.lasty = null;
-        }
-        const onMouseMove = e => {
-            const x = e.clientX;
-            const y = e.clientY;
-            clearCtx(ctx2);
-            fillRect(x, y - settingsHeight, size, ctx2);
-            if(!rubber.classList.contains("pressing")) return;
-            const {lastx, lasty} = rubber.attributes;
-            if(lastx && lasty) {
-                drawLine(lastx, lasty - settingsHeight, x, y - settingsHeight, size, ctx);
-            }
-            rubber.attributes.lastx = x;
-            rubber.attributes.lasty = y;
-            fillRect(x, y - settingsHeight, size, ctx);
-        }
-        canvas2.addEventListener("mousedown" , onMouseDown);
-        canvas2.addEventListener("mouseup" , onMouseUp);
-        canvas2.addEventListener("mousemove" , onMouseMove);
-        canvas2.classList.add("no-cursor");
-        return () => {
-            canvas2.removeEventListener("mousedown" , onMouseDown);
-            canvas2.removeEventListener("mouseup" , onMouseUp);
-            canvas2.removeEventListener("mousemove" , onMouseMove);
-            canvas2.classList.remove("no-cursor");
-            clearCtx(ctx2);
-        }
-    }, [ctx, ctx2, canvas2, size])
-
-    return(
-        <div className="tool" id="rubber">
- 
-        </div>
-    )
-}
+        canvas2.addEventListener("mousedown" , this.onMouseDown);
+        canvas2.addEventListener("mouseup" , this.onMouseUp);
+        canvas2.addEventListener("mousemove" , this.onMouseMove);
+    }
+    removeListeners = () => {
+        const {canvas2} = this.props;
+        if(!canvas2) return;
+        canvas2.removeEventListener("mousedown" , this.onMouseDown);
+        canvas2.removeEventListener("mouseup" , this.onMouseUp);
+        canvas2.removeEventListener("mousemove" , this.onMouseMove);
+    }
+    componentDidMount(){
+        this.addListeners();
+    }
+    componentDidUpdate(){
+        this.addListeners();
+    }
+    componentWillUpdate(){
+        this.removeListeners();
+    }
+    componentWillUnmount(){
+        this.removeListeners();
+    }
+    render(){
+        return(
+            <div className="tool" id="brush"/>
+        )
+    }
+} 
 
 const mapStateToProps = state => {
     return {

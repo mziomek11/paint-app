@@ -15,10 +15,20 @@ html {
     overflow: hidden;
 }
 
-#canv2 {
-    transform: translateY(calc(-100% - 2px));
-}
+.canvas-container {
+    position: relative;
 
-canvas.no-cursor {
-    cursor: pointer;
+    canvas:nth-child(2) {
+        transform: translateY(calc(-100% - 2px));
+    }
+    
+    canvas.no-cursor {
+        cursor: pointer;
+    }
+
+    input.oncanvas{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }

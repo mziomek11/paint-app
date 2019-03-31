@@ -6,16 +6,16 @@
     align-items: center;
     height: 80px;
 
-    .toolmanager{
+    .tool-manager{
         display: flex;
     }
 
-    .toolselect {
+    .tool-select {
         display: grid;
         gap: 10px;
         grid-template-columns: repeat(4, 1fr);
 
-        .tooloption {
+        .tool-option {
             i {
                 font-size: 2rem;
             }
@@ -37,7 +37,7 @@
         }
     }
 
-    .toolselect:hover {
+    .tool-select:hover {
         cursor: pointer;
     }
 }

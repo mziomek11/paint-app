@@ -1,48 +1,70 @@
-import React, {useEffect} from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import {clearCtx, strokeEllipse} from "../../helpers/canvasHelpers";
 
-const Ellipse = ({ctx2, ctx, canvas2, size, settingsHeight}) => {
-    useEffect(() => {
-        if(!canvas2) return;
-        const ellipse = document.getElementById("ellipse");
-        const onMouseDown = e => {
-            const x = e.clientX;
-            const y = e.clientY;
-            ellipse.classList.add("pressing");
-            ellipse.attributes.startx = x;
-            ellipse.attributes.starty = y;
-        }
-        const onMouseUp = e => {
-            const x = e.clientX;
-            const y = e.clientY;
-            const {startx, starty} = ellipse.attributes;
-            clearCtx(ctx2);
-            strokeEllipse(startx, starty - settingsHeight, x, y - settingsHeight, size, ctx);
-            ellipse.classList.remove("pressing");
-        }
-        const onMouseMove = e => {
-            if(!ellipse.classList.contains("pressing")) return;
-            const x = e.clientX;
-            const y = e.clientY;
-            const {startx, starty} = ellipse.attributes;
-            clearCtx(ctx2);
-            strokeEllipse(startx, starty - settingsHeight, x, y - settingsHeight, size, ctx2);
-        }
-        canvas2.addEventListener("mousedown" , onMouseDown);
-        canvas2.addEventListener("mouseup" , onMouseUp);
-        canvas2.addEventListener("mousemove" , onMouseMove);
-        return () => {
-            canvas2.removeEventListener("mousedown" , onMouseDown);
-            canvas2.removeEventListener("mouseup" , onMouseUp);
-            canvas2.removeEventListener("mousemove" , onMouseMove);
-        }
-    }, [ctx2, ctx, canvas2, size])
+class Ellipse extends Component {
+    state = {
+        startX: null,
+        startY: null,
+        mousePressing: false
+    }
+    onMouseDown = e => {
+        const {settingsHeight} = this.props;
+        const x = e.clientX;
+        const y = e.clientY - settingsHeight;
+        this.setState({startX: x, startY: y, mousePressing: true});
+    }
+    onMouseUp = e => {
+        const {ctx, ctx2, size, settingsHeight} = this.props;
+        const {startX, startY} = this.state;
+        const x = e.clientX;
+        const y = e.clientY - settingsHeight;
 
-    return(
-        <div className="tool" id="ellipse">
-        </div>
-    )
+        clearCtx(ctx2);
+        strokeEllipse(startX, startY, x, y, size, ctx);
+        this.setState({mousePressing: false});
+    }
+    onMouseMove = e => {
+        if(!this.state.mousePressing) return;
+        const {ctx2, size, settingsHeight} = this.props;
+        const {startX, startY} = this.state;
+        const x = e.clientX;
+        const y = e.clientY - settingsHeight;
+
+        clearCtx(ctx2);
+        strokeEllipse(startX, startY, x, y, size, ctx2);
+    }
+    addListeners = () => {
+        const {canvas2} = this.props;
+        if(!canvas2) return;
+        canvas2.addEventListener("mousedown" , this.onMouseDown);
+        canvas2.addEventListener("mouseup" , this.onMouseUp);
+        canvas2.addEventListener("mousemove" , this.onMouseMove);
+    }
+    removeListeners = () => {
+        const {canvas2} = this.props;
+        if(!canvas2) return;
+        canvas2.removeEventListener("mousedown" , this.onMouseDown);
+        canvas2.removeEventListener("mouseup" , this.onMouseUp);
+        canvas2.removeEventListener("mousemove" , this.onMouseMove);
+    }
+    componentDidMount(){
+        this.addListeners();
+    }
+    componentDidUpdate(){
+        this.addListeners();
+    }
+    componentWillUpdate(){
+        this.removeListeners();
+    }
+    componentWillUnmount(){
+        this.removeListeners();
+    }
+    render(){
+        return(
+           <div className="tool" id="ellipse"/>
+        )
+    }
 }
 
 const mapStateToProps = state => {

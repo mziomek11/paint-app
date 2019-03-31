@@ -1,49 +1,70 @@
-import React, {useEffect} from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import {clearCtx, drawRoundedLine} from "../../helpers/canvasHelpers";
 
-const Line = ({ctx2, ctx, canvas2, size, settingsHeight}) => {
-    useEffect(() => {
-        if(!canvas2) return;
-        const line = document.getElementById("line");
-        const onMouseDown = e => {
-            const x = e.clientX;
-            const y = e.clientY;
-            line.attributes.startx = x;
-            line.attributes.starty = y;
-            line.classList.add("pressing");
-        }
-        const onMouseUp = e => {
-            const x = e.clientX;
-            const y = e.clientY;
-            const {startx, starty} = line.attributes;
-            clearCtx(ctx2);
-            drawRoundedLine(startx, starty - settingsHeight, x, y - settingsHeight, size, ctx);
-            line.classList.remove("pressing");
-        }
-        const onMouseMove = e => {
-            if(!line.classList.contains("pressing")) return;
-            const x = e.clientX;
-            const y = e.clientY;
-            const {startx, starty} = line.attributes;
-            clearCtx(ctx2);
-            drawRoundedLine(startx, starty - settingsHeight, x, y - settingsHeight, size, ctx2);
-        }
-        canvas2.addEventListener("mousedown" , onMouseDown);
-        canvas2.addEventListener("mouseup" , onMouseUp);
-        canvas2.addEventListener("mousemove" , onMouseMove);
-        return () => {
-            canvas2.removeEventListener("mousedown" , onMouseDown);
-            canvas2.removeEventListener("mouseup" , onMouseUp);
-            canvas2.removeEventListener("mousemove" , onMouseMove);
-        }
-    }, [ctx2, canvas2, size])
+class Line extends Component{
+    state = {
+        startX: null,
+        startY: null,
+        mousePressing: false
+    }
+    onMouseDown = e => {
+        const {settingsHeight} = this.props;
+        const x = e.clientX;
+        const y = e.clientY - settingsHeight;
 
-    return(
-        <div className="tool" id="line">
-        </div>
-    )
-}
+        this.setState({startX: x, startY: y, mousePressing: true});
+    }
+    onMouseUp = e => {
+        const {settingsHeight, ctx, ctx2, size} = this.props;
+        const {startX, startY} = this.state;
+        const x = e.clientX;
+        const y = e.clientY - settingsHeight;
+        clearCtx(ctx2);
+        drawRoundedLine(startX, startY, x, y, size, ctx);
+        this.setState({mousePressing: false});
+    }
+    onMouseMove = e => {
+        if(!this.state.mousePressing) return;
+        const {settingsHeight, ctx2, size} = this.props;
+        const {startX, startY} = this.state;
+        const x = e.clientX;
+        const y = e.clientY - settingsHeight;
+        clearCtx(ctx2);
+        drawRoundedLine(startX, startY, x, y, size, ctx2);
+    }
+    addListeners = () => {
+        const {canvas2} = this.props;
+        if(!canvas2) return;
+        canvas2.addEventListener("mousedown" , this.onMouseDown);
+        canvas2.addEventListener("mouseup" , this.onMouseUp);
+        canvas2.addEventListener("mousemove" , this.onMouseMove);
+    }
+    removeListeners = () => {
+        const {canvas2} = this.props;
+        if(!canvas2) return;
+        canvas2.removeEventListener("mousedown" , this.onMouseDown);
+        canvas2.removeEventListener("mouseup" , this.onMouseUp);
+        canvas2.removeEventListener("mousemove" , this.onMouseMove);
+    }
+    componentDidMount(){
+        this.addListeners();
+    }
+    componentDidUpdate(){
+        this.addListeners();
+    }
+    componentWillUpdate(){
+        this.removeListeners();
+    }
+    componentWillUnmount(){
+        this.removeListeners();
+    }
+    render(){
+        return(
+            <div className="tool" id="line" />
+        )
+    }
+} 
 
 const mapStateToProps = state => {
     return {

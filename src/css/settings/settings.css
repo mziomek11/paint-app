@@ -13,13 +13,13 @@
   height: 80px;
 }
 
-.settings .toolmanager {
+.settings .tool-manager {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.settings .toolselect {
+.settings .tool-select {
   display: -ms-grid;
   display: grid;
   gap: 10px;
@@ -27,17 +27,17 @@
       grid-template-columns: repeat(4, 1fr);
 }
 
-.settings .toolselect .tooloption i {
+.settings .tool-select .tool-option i {
   font-size: 2rem;
 }
 
-.settings .toolselect .tooloption div.rect {
+.settings .tool-select .tool-option div.rect {
   width: 100%;
   height: 100%;
   border: 2px solid black;
 }
 
-.settings .toolselect .tooloption div.line {
+.settings .tool-select .tool-option div.line {
   width: 100%;
   height: 4px;
   border: 2px solid black;
@@ -47,7 +47,7 @@
   margin-top: 8px;
 }
 
-.settings .toolselect:hover {
+.settings .tool-select:hover {
   cursor: pointer;
 }
 /*# sourceMappingURL=settings.css.map */

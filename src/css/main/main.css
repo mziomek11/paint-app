@@ -16,12 +16,22 @@ html {
   overflow: hidden;
 }
 
-#canv2 {
+.canvas-container {
+  position: relative;
+}
+
+.canvas-container canvas:nth-child(2) {
   -webkit-transform: translateY(calc(-100% - 2px));
           transform: translateY(calc(-100% - 2px));
 }
 
-canvas.no-cursor {
+.canvas-container canvas.no-cursor {
   cursor: pointer;
+}
+
+.canvas-container input.oncanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 /*# sourceMappingURL=main.css.map */
