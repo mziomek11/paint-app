@@ -1,15 +1,30 @@
 import React, {useEffect} from "react";
+import {connect} from "react-redux";
+import {updateTextArea} from "../store/actions/paintActions";
 
-const TextArea = () => {
-    //const [text, setText] = useState("");
+const TextArea = ({updateTextArea, color}) => {
     let textArea = React.createRef();
     useEffect(() => {
-        //console.log(textArea);
+        updateTextArea(textArea.current);
     }, [])
-    const style = {};
+    useEffect(() => {
+        textArea.current.style.color = color;
+    }, [color])
     return (
-        <input type="textarea" className="oncanvas" style={style} ref={textArea}/>
+        <textarea className="oncanvas" ref={textArea}></textarea>
     )
 }
 
-export default TextArea;
+const mapStateToProps = state => {
+    return {
+        color: state.paint.color
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateTextArea: textArea => dispatch(updateTextArea(textArea))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TextArea);

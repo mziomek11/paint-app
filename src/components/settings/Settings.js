@@ -8,10 +8,10 @@ import "../../css/settings/settings.css";
 const Settings = () => {
     return (
         <div className="settings">
+            <ToolManager/>
             <Size/>
             <Color/>
             <Clear/>
-            <ToolManager/>
         </div>
     )
 }

@@ -12,10 +12,12 @@ export const strokeRect = (startX, startY, endX, endY, size, ctx) => {
 
 export const strokeTextBorder = (startX, startY, endX, endY, ctx) => {
     const lastWidth = ctx.lineWidth;
+    const lastStroke = ctx.strokeStyle;
     const lastLineDash = ctx.getLineDash();
     
-    ctx.setLineDash([5, 3]);
+    ctx.setLineDash([2, 1]);
     ctx.lineWidth = 1;
+    ctx.strokeStyle = "black";
     ctx.beginPath();
     ctx.moveTo(startX, startY);
     ctx.lineTo(endX, startY);
@@ -25,6 +27,7 @@ export const strokeTextBorder = (startX, startY, endX, endY, ctx) => {
     ctx.stroke();
 
     ctx.lineWidth = lastWidth;
+    ctx.strokeStyle = lastStroke;
     ctx.setLineDash(lastLineDash);
 };
 

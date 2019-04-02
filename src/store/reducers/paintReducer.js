@@ -28,14 +28,7 @@ const paintReducer = (state=initState, action) => {
         case PaintActions.UPDATE_COLOR:
             return {...state, color: action.payload};
         case PaintActions.UPDATE_TEXT_AREA:
-            const {textArea, options} = action.payload;
-            if(textArea){
-                console.log(textArea)
-                console.log(options)
-            }else {
-                console.log(options)
-            }
-            return {...state};
+            return {...state, textArea: action.payload};
         default:
             return state;
     }

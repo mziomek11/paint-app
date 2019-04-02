@@ -2,15 +2,15 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background: lightblue;
-  padding: 0 10%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  background: #bdc3c7;
+  padding: 15px 20% 0 20%;
+  border-bottom: 2px solid #b8b8b8;
   height: 80px;
+}
+
+.settings h3 {
+  font-size: 1.7rem;
+  margin-bottom: 5px;
 }
 
 .settings .tool-manager {
@@ -19,12 +19,104 @@
   display: flex;
 }
 
+.settings .size {
+  text-align: center;
+  margin: 0 50px;
+}
+
+.settings .size h3 {
+  margin-bottom: 10px;
+}
+
+.settings .size .slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.9;
+  border-radius: 10px;
+  -webkit-transition: .2s;
+  -webkit-transition: opacity .2s;
+  transition: opacity .2s;
+}
+
+.settings .size .slider:hover {
+  opacity: 1;
+}
+
+.settings .size .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #c0392b;
+  cursor: pointer;
+}
+
+.settings .size .slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #c0392b;
+  cursor: pointer;
+}
+
+.settings .color {
+  margin-right: 50px;
+}
+
+.settings .color input[type="color"] {
+  padding: 0;
+}
+
+.settings .color input:hover {
+  cursor: pointer;
+}
+
+.settings .clear button {
+  border: 1px solid black;
+  cursor: pointer;
+  background: #e3e3e3;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 10px 12px;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  -webkit-transition: .3s linear;
+  transition: .3s linear;
+  margin-top: 10px;
+  border-radius: 10px;
+  opacity: 0.9;
+}
+
+.settings .clear button:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.settings .clear button:focus {
+  outline: none;
+}
+
 .settings .tool-select {
   display: -ms-grid;
   display: grid;
   gap: 10px;
   -ms-grid-columns: (1fr)[4];
       grid-template-columns: repeat(4, 1fr);
+}
+
+.settings .tool-select .tool-option {
+  width: 100%;
+  height: 100%;
+  -webkit-transition: .3s linear;
+  transition: .3s linear;
+}
+
+.settings .tool-select .tool-option div {
+  -webkit-transition: .3s linear;
+  transition: .3s linear;
 }
 
 .settings .tool-select .tool-option i {
@@ -47,7 +139,20 @@
   margin-top: 8px;
 }
 
-.settings .tool-select:hover {
+.settings .tool-select .tool-option.selected {
+  color: #c0392b;
+}
+
+.settings .tool-select .tool-option.selected div {
+  border-color: #c0392b;
+}
+
+.settings .tool-select .tool-option:hover {
   cursor: pointer;
+  color: #c0392b;
+}
+
+.settings .tool-select .tool-option:hover div {
+  border-color: #c0392b;
 }
 /*# sourceMappingURL=settings.css.map */

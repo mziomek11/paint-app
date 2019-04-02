@@ -3,8 +3,9 @@ import {connect} from "react-redux";
 import {updateColor} from "../../store/actions/paintActions";
 
 const Color = ({ctx, ctx2, color, updateColor}) => {
+    let colorpicker = React.createRef();
     useEffect(() => {
-        document.getElementById("colorpicker").value = color;
+        colorpicker.current.value = color;
         updateCtxsColor(color);
     }, [color])
 
@@ -21,7 +22,10 @@ const Color = ({ctx, ctx2, color, updateColor}) => {
     }
 
     return (
-        <input type="color" onChange={handleColorChange} id="colorpicker"/>
+        <div className="color">
+            <h3>Color</h3>
+            <input type="color" ref={colorpicker} onChange={handleColorChange}/>
+        </div>
     )
 }
 
