@@ -17,7 +17,7 @@ It is my first project created with React and Redux.
 * Sass
 
 ## Features
-List of avaible tools
+List of avaible tools:
 * Brush
 * Ellipse
 * Eraser
