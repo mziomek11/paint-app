@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+import settings from "../../settings";
 import { clearCtx, drawRoundedLine } from "../../helpers/canvasHelpers";
 
 class Line extends Component {
@@ -8,9 +10,8 @@ class Line extends Component {
   mousePressing = false;
 
   onMouseDown = e => {
-    const { settingsHeight } = this.props;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
 
     this.startX = x;
     this.startY = y;
@@ -18,9 +19,9 @@ class Line extends Component {
   };
 
   onMouseUp = e => {
-    const { settingsHeight, ctx, ctx2, size } = this.props;
+    const { ctx, ctx2, size } = this.props;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
     clearCtx(ctx2);
     drawRoundedLine(this.startX, this.startY, x, y, size, ctx);
     this.mousePressing = false;
@@ -28,9 +29,9 @@ class Line extends Component {
 
   onMouseMove = e => {
     if (!this.mousePressing) return;
-    const { settingsHeight, ctx2, size } = this.props;
+    const { ctx2, size } = this.props;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
     clearCtx(ctx2);
     drawRoundedLine(this.startX, this.startY, x, y, size, ctx2);
   };
@@ -77,8 +78,7 @@ const mapStateToProps = state => {
     ctx: state.paint.ctx,
     ctx2: state.paint.ctx2,
     size: state.paint.size,
-    canvas2: state.paint.canvas2,
-    settingsHeight: state.paint.settingsHeight
+    canvas2: state.paint.canvas2
   };
 };
 

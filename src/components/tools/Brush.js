@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+import settings from "../../settings";
 import { fillCircle, drawLine } from "../../helpers/canvasHelpers";
 
 class Brush extends Component {
@@ -8,9 +10,9 @@ class Brush extends Component {
   mousePressing = false;
 
   onMouseDown = e => {
-    const { settingsHeight, ctx, size } = this.props;
+    const { ctx, size } = this.props;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
 
     fillCircle(x, y, size, ctx);
     this.lastX = x;
@@ -26,9 +28,9 @@ class Brush extends Component {
 
   onMouseMove = e => {
     if (!this.mousePressing) return;
-    const { settingsHeight, ctx, size } = this.props;
+    const { ctx, size } = this.props;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
 
     drawLine(this.lastX, this.lastY, x, y, size, ctx);
     fillCircle(x, y, size, ctx);
@@ -77,8 +79,7 @@ const mapStateToProps = state => {
   return {
     ctx: state.paint.ctx,
     size: state.paint.size,
-    canvas2: state.paint.canvas2,
-    settingsHeight: state.paint.settingsHeight
+    canvas2: state.paint.canvas2
   };
 };
 

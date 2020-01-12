@@ -7,10 +7,10 @@ const TextArea = ({ updateTextArea, color }) => {
   useEffect(() => {
     updateTextArea(textArea.current);
   }, []);
-  useEffect(() => {
-    textArea.current.style.color = color;
-  }, [color]);
-  return <textarea className="oncanvas" ref={textArea}></textarea>;
+
+  return (
+    <textarea className="oncanvas" style={{ color }} ref={textArea}></textarea>
+  );
 };
 
 const mapStateToProps = state => {

@@ -6,7 +6,6 @@ const initState = {
   canvas2: null,
   ctx2: null,
   size: 10,
-  settingsHeight: 80,
   color: "#000000",
   textArea: null
 };

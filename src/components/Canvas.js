@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+
+import settings from "../settings";
 import { updateCanvas, updateCtx } from "../store/actions/paintActions";
 
-const Canvas = ({ updateCanvas, updateCtx, isFirst, settingsHeight }) => {
+const Canvas = ({ updateCanvas, updateCtx, isFirst }) => {
   let canvas = React.createRef();
   useEffect(() => {
     const ctx = canvas.current.getContext("2d");
@@ -15,7 +17,7 @@ const Canvas = ({ updateCanvas, updateCtx, isFirst, settingsHeight }) => {
 
   const handleResize = canvas => {
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight - settingsHeight;
+    canvas.height = window.innerHeight - settings.height;
   };
 
   return (

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+import settings from "../../settings";
 import {
   clearCtx,
   strokeTextBorder,
@@ -16,9 +18,9 @@ class Text extends Component {
 
   onMouseDown = e => {
     const { typing, startX, startY, endX, endY, props } = this;
-    const { settingsHeight, ctx, textArea } = props;
+    const { ctx, textArea } = props;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
 
     if (!typing) {
       this.startX = x;
@@ -43,11 +45,11 @@ class Text extends Component {
 
   onMouseUp = e => {
     const { props, startX, startY, pressing } = this;
-    const { settingsHeight, textArea, ctx2 } = props;
+    const { textArea, ctx2 } = props;
 
     if (!pressing) return;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
     this.endX = x;
     this.endY = y;
     this.pressing = false;
@@ -68,11 +70,11 @@ class Text extends Component {
 
   onMouseMove = e => {
     const { props, pressing, startX, startY } = this;
-    const { settingsHeight, ctx2 } = props;
+    const { ctx2 } = props;
 
     if (!pressing) return;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
 
     clearCtx(ctx2);
     strokeTextBorder(startX, startY, x, y, ctx2);
@@ -141,7 +143,6 @@ const mapStateToProps = state => {
     ctx2: state.paint.ctx2,
     size: state.paint.size,
     canvas2: state.paint.canvas2,
-    settingsHeight: state.paint.settingsHeight,
     textArea: state.paint.textArea
   };
 };

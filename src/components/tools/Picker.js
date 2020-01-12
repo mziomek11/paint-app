@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+
+import settings from "../../settings";
 import { updateColor } from "../../store/actions/paintActions";
 
-const Picker = ({ ctx, canvas2, settingsHeight, updateColor }) => {
+const Picker = ({ ctx, canvas2, updateColor }) => {
   useEffect(() => {
     if (!canvas2) return;
     const onMouseDown = e => {
       const canvasClickX = e.clientX;
-      const canvasClickY = e.clientY - settingsHeight;
+      const canvasClickY = e.clientY - settings.height;
       const imageData = ctx.getImageData(canvasClickX, canvasClickY, 1, 1).data;
       const rgbToHex = (r, g, b) => {
         const hexR =
@@ -34,8 +36,7 @@ const Picker = ({ ctx, canvas2, settingsHeight, updateColor }) => {
 const mapStateToProps = state => {
   return {
     ctx: state.paint.ctx,
-    canvas2: state.paint.canvas2,
-    settingsHeight: state.paint.settingsHeight
+    canvas2: state.paint.canvas2
   };
 };
 

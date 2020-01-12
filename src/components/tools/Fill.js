@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+
+import settings from "../../settings";
 import { rgbToHex, hexToRgb } from "../../helpers/colorHelpers";
 
-const Fill = ({ ctx, canvas2, settingsHeight }) => {
+const Fill = ({ ctx, canvas2 }) => {
   useEffect(() => {
     if (!canvas2) return;
     const onMouseDown = e => {
       const { width, height } = ctx.canvas;
       const canvasClickX = e.clientX;
-      const canvasClickY = e.clientY - settingsHeight;
+      const canvasClickY = e.clientY - settings.height;
       const image = ctx.getImageData(0, 0, width, height);
       const pixels = image.data;
       const pos = 4 * (width * canvasClickY + canvasClickX);
@@ -88,8 +90,7 @@ const Fill = ({ ctx, canvas2, settingsHeight }) => {
 const mapStateToProps = state => {
   return {
     ctx: state.paint.ctx,
-    canvas2: state.paint.canvas2,
-    settingsHeight: state.paint.settingsHeight
+    canvas2: state.paint.canvas2
   };
 };
 

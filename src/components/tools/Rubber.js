@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+import settings from "../../settings";
 import { fillRect, drawLine } from "../../helpers/canvasHelpers";
 
 class Rubber extends Component {
@@ -8,9 +10,9 @@ class Rubber extends Component {
   mousePressing = false;
 
   onMouseDown = e => {
-    const { settingsHeight, ctx, size } = this.props;
+    const { ctx, size } = this.props;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
 
     fillRect(x, y, size, ctx);
     this.lastX = x;
@@ -26,9 +28,9 @@ class Rubber extends Component {
 
   onMouseMove = e => {
     if (!this.mousePressing) return;
-    const { settingsHeight, ctx, size } = this.props;
+    const { ctx, size } = this.props;
     const x = e.clientX;
-    const y = e.clientY - settingsHeight;
+    const y = e.clientY - settings.height;
 
     drawLine(this.lastX, this.lastY, x, y, size, ctx);
     fillRect(x, y, size, ctx);
@@ -78,8 +80,7 @@ const mapStateToProps = state => {
     ctx: state.paint.ctx,
     ctx2: state.paint.ctx2,
     size: state.paint.size,
-    canvas2: state.paint.canvas2,
-    settingsHeight: state.paint.settingsHeight
+    canvas2: state.paint.canvas2
   };
 };
 
