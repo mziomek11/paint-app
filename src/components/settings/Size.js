@@ -25,10 +25,8 @@ const Size = ({ updateSize }) => {
   );
 };
 
-const mapDispatchToPros = dispatch => {
-  return {
-    updateSize: size => dispatch(updateSize(size))
-  };
-};
+const mapDispatchToPros = dispatch => ({
+  updateSize: size => dispatch(updateSize(size))
+});
 
 export default connect(null, mapDispatchToPros)(Size);

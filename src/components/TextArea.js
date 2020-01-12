@@ -13,16 +13,12 @@ const TextArea = ({ updateTextArea, color }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    color: state.paint.color
-  };
-};
+const mapStateToProps = state => ({
+  color: state.paint.color
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateTextArea: textArea => dispatch(updateTextArea(textArea))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  updateTextArea: textArea => dispatch(updateTextArea(textArea))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TextArea);

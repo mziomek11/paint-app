@@ -1,4 +1,4 @@
-import { PaintActions } from "./ActionTypes";
+import { PaintActions } from "./constants";
 
 export const updateCanvas = (canvas, isFirst) => ({
   type: PaintActions.UPDATE_CANVAS,

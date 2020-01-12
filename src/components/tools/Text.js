@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { connect } from "react-redux";
 
 import settings from "../../settings";
@@ -133,18 +133,16 @@ class Text extends Component {
   }
 
   render() {
-    return <div className="tool" id="text" />;
+    return null;
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    ctx: state.paint.ctx,
-    ctx2: state.paint.ctx2,
-    size: state.paint.size,
-    canvas2: state.paint.canvas2,
-    textArea: state.paint.textArea
-  };
-};
+const mapStateToProps = state => ({
+  ctx: state.paint.ctx,
+  ctx2: state.paint.ctx2,
+  size: state.paint.size,
+  canvas2: state.paint.canvas2,
+  textArea: state.paint.textArea
+});
 
 export default connect(mapStateToProps)(Text);

@@ -1,4 +1,4 @@
-import { PaintActions } from "../actions/ActionTypes";
+import { PaintActions } from "../actions/constants";
 
 const initState = {
   canvas: null,

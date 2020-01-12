@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 
 import settings from "../../settings";
@@ -84,14 +84,12 @@ const Fill = ({ ctx, canvas2 }) => {
     };
   }, [ctx, canvas2]);
 
-  return <div className="tool" id="fill"></div>;
+  return null;
 };
 
-const mapStateToProps = state => {
-  return {
-    ctx: state.paint.ctx,
-    canvas2: state.paint.canvas2
-  };
-};
+const mapStateToProps = state => ({
+  ctx: state.paint.ctx,
+  canvas2: state.paint.canvas2
+});
 
 export default connect(mapStateToProps)(Fill);

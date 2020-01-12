@@ -29,18 +29,14 @@ const Color = ({ ctx, ctx2, color, updateColor }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    ctx: state.paint.ctx,
-    ctx2: state.paint.ctx2,
-    color: state.paint.color
-  };
-};
+const mapStateToProps = state => ({
+  ctx: state.paint.ctx,
+  ctx2: state.paint.ctx2,
+  color: state.paint.color
+});
 
-const mapDispatchToProps = disptach => {
-  return {
-    updateColor: color => disptach(updateColor(color))
-  };
-};
+const mapDispatchToProps = disptach => ({
+  updateColor: color => disptach(updateColor(color))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Color);

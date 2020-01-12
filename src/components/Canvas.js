@@ -29,16 +29,9 @@ const Canvas = ({ updateCanvas, updateCtx, isFirst }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    settingsHeight: state.paint.settingsHeight
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    updateCanvas: (canvas, isFirst) => dispatch(updateCanvas(canvas, isFirst)),
-    updateCtx: (ctx, isFirst) => dispatch(updateCtx(ctx, isFirst))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  updateCanvas: (canvas, isFirst) => dispatch(updateCanvas(canvas, isFirst)),
+  updateCtx: (ctx, isFirst) => dispatch(updateCtx(ctx, isFirst))
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Canvas);
+export default connect(null, mapDispatchToProps)(Canvas);

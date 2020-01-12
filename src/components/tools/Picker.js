@@ -1,49 +1,36 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 
 import settings from "../../settings";
 import { updateColor } from "../../store/actions/paintActions";
+import { rgbToHex } from "../../helpers/colorHelpers";
 
 const Picker = ({ ctx, canvas2, updateColor }) => {
   useEffect(() => {
-    if (!canvas2) return;
-    const onMouseDown = e => {
-      const canvasClickX = e.clientX;
-      const canvasClickY = e.clientY - settings.height;
-      const imageData = ctx.getImageData(canvasClickX, canvasClickY, 1, 1).data;
-      const rgbToHex = (r, g, b) => {
-        const hexR =
-          r.toString(16).length === 1 ? "0" + r.toString(16) : r.toString(16);
-        const hexG =
-          g.toString(16).length === 1 ? "0" + g.toString(16) : g.toString(16);
-        const hexB =
-          b.toString(16).length === 1 ? "0" + b.toString(16) : b.toString(16);
+    if (canvas2) {
+      canvas2.addEventListener("mousedown", onMouseDown);
+      return () => canvas2.removeEventListener("mousedown", onMouseDown);
+    }
+  }, [canvas2]);
 
-        return "#" + hexR + hexG + hexB;
-      };
-      const colorRGB = rgbToHex(imageData[0], imageData[1], imageData[2]);
-      updateColor(colorRGB);
-    };
-    canvas2.addEventListener("mousedown", onMouseDown);
-    return () => {
-      canvas2.removeEventListener("mousedown", onMouseDown);
-    };
-  }, [ctx, canvas2]);
-
-  return <div className="tool" id="picker"></div>;
-};
-
-const mapStateToProps = state => {
-  return {
-    ctx: state.paint.ctx,
-    canvas2: state.paint.canvas2
+  const onMouseDown = e => {
+    const canvasClickX = e.clientX;
+    const canvasClickY = e.clientY - settings.height;
+    const imageData = ctx.getImageData(canvasClickX, canvasClickY, 1, 1).data;
+    const colorRGB = rgbToHex(imageData[0], imageData[1], imageData[2]);
+    updateColor(colorRGB);
   };
+
+  return null;
 };
 
-const mapDispatchToProps = disptach => {
-  return {
-    updateColor: color => disptach(updateColor(color))
-  };
-};
+const mapStateToProps = state => ({
+  ctx: state.paint.ctx,
+  canvas2: state.paint.canvas2
+});
+
+const mapDispatchToProps = disptach => ({
+  updateColor: color => disptach(updateColor(color))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Picker);

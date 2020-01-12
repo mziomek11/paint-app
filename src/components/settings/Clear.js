@@ -22,11 +22,9 @@ const Clear = ({ ctx, ctx2 }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    ctx: state.paint.ctx,
-    ctx2: state.paint.ctx2
-  };
-};
+const mapStateToProps = state => ({
+  ctx: state.paint.ctx,
+  ctx2: state.paint.ctx2
+});
 
 export default connect(mapStateToProps)(Clear);
