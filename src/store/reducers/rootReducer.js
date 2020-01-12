@@ -1,8 +1,8 @@
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 import paintReducer from "./paintReducer";
 
 const rootReducer = combineReducers({
-    paint: paintReducer
-})
+  paint: paintReducer
+});
 
 export default rootReducer;
