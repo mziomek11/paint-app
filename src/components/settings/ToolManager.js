@@ -18,6 +18,7 @@ const DrawManager = () => {
     );
     e.currentTarget.classList.add("selected");
   };
+
   return (
     <div className="tool-maganer">
       <div className="tool-select" ref={select}>

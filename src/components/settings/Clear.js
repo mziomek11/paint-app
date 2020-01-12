@@ -5,6 +5,7 @@ const Clear = ({ ctx, ctx2 }) => {
   useEffect(() => {
     if (ctx) handleClearClick();
   }, [ctx]);
+
   const handleClearClick = e => {
     const { width, height } = ctx.canvas;
     const lastColor = ctx.fillStyle;
@@ -13,6 +14,7 @@ const Clear = ({ ctx, ctx2 }) => {
     ctx2.clearRect(0, 0, width, height);
     ctx.fillStyle = lastColor;
   };
+
   return (
     <div className="clear">
       <button onClick={handleClearClick}>Clear</button>

@@ -9,6 +9,7 @@ const Size = ({ updateSize }) => {
     setSize(newSize);
     updateSize(newSize);
   };
+
   return (
     <div className="size">
       <h3>Size</h3>

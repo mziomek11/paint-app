@@ -3,36 +3,38 @@ import { connect } from "react-redux";
 import { clearCtx, drawRoundedLine } from "../../helpers/canvasHelpers";
 
 class Line extends Component {
-  state = {
-    startX: null,
-    startY: null,
-    mousePressing: false
-  };
+  startX = null;
+  startY = null;
+  mousePressing = false;
+
   onMouseDown = e => {
     const { settingsHeight } = this.props;
     const x = e.clientX;
     const y = e.clientY - settingsHeight;
 
-    this.setState({ startX: x, startY: y, mousePressing: true });
+    this.startX = x;
+    this.startY = y;
+    this.mousePressing = true;
   };
+
   onMouseUp = e => {
     const { settingsHeight, ctx, ctx2, size } = this.props;
-    const { startX, startY } = this.state;
     const x = e.clientX;
     const y = e.clientY - settingsHeight;
     clearCtx(ctx2);
-    drawRoundedLine(startX, startY, x, y, size, ctx);
-    this.setState({ mousePressing: false });
+    drawRoundedLine(this.startX, this.startY, x, y, size, ctx);
+    this.mousePressing = false;
   };
+
   onMouseMove = e => {
-    if (!this.state.mousePressing) return;
+    if (!this.mousePressing) return;
     const { settingsHeight, ctx2, size } = this.props;
-    const { startX, startY } = this.state;
     const x = e.clientX;
     const y = e.clientY - settingsHeight;
     clearCtx(ctx2);
-    drawRoundedLine(startX, startY, x, y, size, ctx2);
+    drawRoundedLine(this.startX, this.startY, x, y, size, ctx2);
   };
+
   addListeners = () => {
     const { canvas2 } = this.props;
     if (!canvas2) return;
@@ -40,6 +42,7 @@ class Line extends Component {
     canvas2.addEventListener("mouseup", this.onMouseUp);
     canvas2.addEventListener("mousemove", this.onMouseMove);
   };
+
   removeListeners = () => {
     const { canvas2 } = this.props;
     if (!canvas2) return;
@@ -47,18 +50,23 @@ class Line extends Component {
     canvas2.removeEventListener("mouseup", this.onMouseUp);
     canvas2.removeEventListener("mousemove", this.onMouseMove);
   };
+
   componentDidMount() {
     this.addListeners();
   }
+
   componentDidUpdate() {
     this.addListeners();
   }
+
   componentWillUpdate() {
     this.removeListeners();
   }
+
   componentWillUnmount() {
     this.removeListeners();
   }
+
   render() {
     return <div className="tool" id="line" />;
   }
