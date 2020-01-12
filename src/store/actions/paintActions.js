@@ -1,11 +1,9 @@
 import { PaintActions } from "./ActionTypes";
 
-export const updateCanvas = (canvas, isFirst) => {
-  return {
-    type: PaintActions.UPDATE_CANVAS,
-    payload: { canvas, isFirst }
-  };
-};
+export const updateCanvas = (canvas, isFirst) => ({
+  type: PaintActions.UPDATE_CANVAS,
+  payload: { canvas, isFirst }
+});
 
 export const updateCtx = (ctx, isFirst) => {
   if (isFirst) {
@@ -15,29 +13,24 @@ export const updateCtx = (ctx, isFirst) => {
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = lastColor;
   }
+
   return {
     type: PaintActions.UPDATE_CTX,
     payload: { ctx, isFirst }
   };
 };
 
-export const updateSize = size => {
-  return {
-    type: PaintActions.UPDATE_SIZE,
-    payload: size
-  };
-};
+export const updateSize = size => ({
+  type: PaintActions.UPDATE_SIZE,
+  payload: size
+});
 
-export const updateColor = color => {
-  return {
-    type: PaintActions.UPDATE_COLOR,
-    payload: color
-  };
-};
+export const updateColor = color => ({
+  type: PaintActions.UPDATE_COLOR,
+  payload: color
+});
 
-export const updateTextArea = (textArea, options) => {
-  return {
-    type: PaintActions.UPDATE_TEXT_AREA,
-    payload: textArea
-  };
-};
+export const updateTextArea = textArea => ({
+  type: PaintActions.UPDATE_TEXT_AREA,
+  payload: textArea
+});

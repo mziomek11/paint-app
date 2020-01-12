@@ -13,15 +13,15 @@ const initState = {
 const paintReducer = (state = initState, action) => {
   switch (action.type) {
     case PaintActions.UPDATE_CANVAS:
-      if (action.payload.isFirst) {
-        return { ...state, canvas: action.payload.canvas };
-      }
-      return { ...state, canvas2: action.payload.canvas };
+      return {
+        ...state,
+        [action.payload.isFirst ? "canvas" : "canvas2"]: action.payload.canvas
+      };
     case PaintActions.UPDATE_CTX:
-      if (action.payload.isFirst) {
-        return { ...state, ctx: action.payload.ctx };
-      }
-      return { ...state, ctx2: action.payload.ctx };
+      return {
+        ...state,
+        [action.payload.isFirst ? "ctx" : "ctx2"]: action.payload.ctx
+      };
     case PaintActions.UPDATE_SIZE:
       return { ...state, size: action.payload };
     case PaintActions.UPDATE_COLOR:
